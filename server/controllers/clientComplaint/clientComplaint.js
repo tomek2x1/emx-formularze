@@ -1,11 +1,23 @@
 const express = require("express");
 const router = express.Router();
+const upload = require("express-fileupload");
+
+router.use(upload());
 
 router.post("/", async (req, res) => {
   try {
-    console.log("server");
+    // Zamiana obiektu w tablicę
+    const filesArray = Object.values(req.files);
+    filesArray.forEach((file) => {
+      file.mv("./uploads/" + file.name, (err) => {
+        if (err) {
+          console.log(err);
+          throw "Zdjęcie nie zostało zapisane";
+        }
+      });
+    });
   } catch (e) {
-    response.status(500).send(new Error("Błąd serwera"));
+    res.status(500).send(new Error("Błąd serwera"));
   }
 });
 
