@@ -16,6 +16,8 @@ router.post("/", async (req, res) => {
         }
       });
     });
+
+    // odczytywanie plików i wysyłka do Freshdesk
   } catch (e) {
     res.status(500).send(new Error("Błąd serwera"));
   }
