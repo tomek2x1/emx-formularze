@@ -1,11 +1,31 @@
 import { useState } from "react";
 import axios from "axios";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+
+import styled from "styled-components";
+
+import "./App.css";
+
+import ProgressBar from "./Components/ProgressBar";
+
+const MyInput = styled(TextField)({
+  background: "#ffffff",
+  padding: "5px 10px",
+});
 
 const App = () => {
   const [data, setData] = useState({
     name: "",
     surname: "",
   });
+
+  const [bar, setBar] = useState(1);
+
+  const handleStep = (id) => {
+    console.log(id);
+    setBar(id);
+  };
 
   const handleInput = (e) => {
     setData({
@@ -78,6 +98,21 @@ const App = () => {
       >
         Send
       </button>
+
+      <ProgressBar bar={bar} handleStep={handleStep} />
+      <Box component="form" noValidate autoComplete="off">
+        <div>
+          <MyInput
+            id="outlined-password-input"
+            label="Numer zamówienia lub numer faktury: *"
+            type="text"
+            autoComplete="current-password"
+            size="small"
+            fullWidth
+            variant="standard"
+          />
+        </div>
+      </Box>
     </div>
   );
 };
